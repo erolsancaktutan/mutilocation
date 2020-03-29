@@ -1,2 +1,3 @@
 rootProject.name='LocationGetter'
 include ':app'
+include ':location'
