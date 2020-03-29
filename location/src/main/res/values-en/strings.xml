@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="location_alert">Location service is off! Would you like to open it?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+</resources>

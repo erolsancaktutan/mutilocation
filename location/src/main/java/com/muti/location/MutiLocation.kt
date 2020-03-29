@@ -41,7 +41,7 @@ class MutiLocation(private val activity: Activity): Service(), LocationListener 
         }
     }
 
-    private fun isReadyLocationService(): Boolean {
+    fun isReadyLocationService(): Boolean {
         locationManager = activity.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
         isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
@@ -104,25 +104,46 @@ class MutiLocation(private val activity: Activity): Service(), LocationListener 
                     }
                 }
             }
+        }else{
+            if (isNetworkEnabled) {
+                locationManager.requestLocationUpdates(
+                    LocationManager.NETWORK_PROVIDER,
+                    MIN_TIME_BW_UPDATES,
+                    MIN_DISTANCE_CHANGE_FOR_UPDATES, this
+                )
+                if (locationManager != null) {
+                    mLocation =
+                        locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+
+                }
+            }else if (isGPSEnabled) {
+                locationManager.requestLocationUpdates(
+                    LocationManager.GPS_PROVIDER,
+                    MIN_TIME_BW_UPDATES,
+                    MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+                if (locationManager != null) {
+                    mLocation = locationManager
+                        .getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                }
+            }
         }
     }
+
     fun getCurrentLocation():MutableLiveData<Location>{
         return mutableLocation
     }
 
     private fun showSettingsAlert() {
         val alertDialog: AlertDialog.Builder = AlertDialog.Builder(activity)
-        alertDialog.setTitle("GPS is settings")
         alertDialog
-            .setMessage("GPS is not enabled. Do you want to go to settings menu?")
+            .setMessage(activity.getString(R.string.location_alert))
 
-        alertDialog.setPositiveButton("Settings",
+        alertDialog.setPositiveButton(activity.getString(R.string.yes),
             DialogInterface.OnClickListener { dialog, which ->
-                activity.startActivity(
-                    Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-                )
+                activity.startActivityForResult(
+                    Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS), 1461, null)
             })
-        alertDialog.setNegativeButton("Cancel",
+        alertDialog.setNegativeButton(activity.getString(R.string.no),
             DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
         alertDialog.show()
     }

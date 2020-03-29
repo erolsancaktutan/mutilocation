@@ -1,10 +1,9 @@
 package com.muti.locationgetter
 
-import android.content.pm.PackageManager
-import android.location.Location
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.muti.location.MutiLocation
 import kotlinx.android.synthetic.main.activity_main.*
@@ -46,6 +45,18 @@ class MainActivity : AppCompatActivity() {
             }
             else -> {
                 // Ignore all other requests.
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        when(requestCode){
+            1461->{
+                if (mutiLocation!!.isReadyLocationService()){
+                    getLocation()
+                }
             }
         }
     }

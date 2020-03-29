@@ -1,0 +1,5 @@
+<resources>
+    <string name="location_alert">Konum servisi kapalı! Açmak ister misiniz?</string>
+    <string name="yes">Evet</string>
+    <string name="no">Hayır</string>
+</resources>
