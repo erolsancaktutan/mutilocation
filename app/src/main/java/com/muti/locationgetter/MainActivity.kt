@@ -15,9 +15,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         mutiLocation = MutiLocation(this)
+        mutiLocation!!.setAccuracy(1,0.5f)
 
         mutiLocation!!.getCurrentLocation().observe(this, Observer { t ->
-            btn.text = "Lat: "+t.latitude.toString()+ "\nLong: "+t.longitude.toString()
+            tv.text = tv.text.toString()+ "Lat: "+t.latitude.toString()+ "  Long: "+t.longitude.toString()+"\n"
+            mutiLocation!!.stop()
         })
 
         btn.setOnClickListener(View.OnClickListener {
