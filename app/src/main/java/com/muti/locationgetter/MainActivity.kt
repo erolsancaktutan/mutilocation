@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
 
         mutiLocation!!.getCurrentLocation().observe(this, Observer { t ->
             tv.text = tv.text.toString()+ "Lat: "+t.latitude.toString()+ "  Long: "+t.longitude.toString()+"\n"
-            mutiLocation!!.stop()
+            //mutiLocation!!.stop()
         })
 
         btn.setOnClickListener(View.OnClickListener {

@@ -168,14 +168,20 @@ class MutiLocation(private val context: Context): Service(), LocationListener {
     override fun onBind(intent: Intent?): IBinder? {
         TODO("Not yet implemented")
     }
+/*
 
     override fun onLocationChanged(location: Location?) {
+        mutableLocation.value=location
+    }
+*/
+
+    override fun onLocationChanged(location: Location) {
         mutableLocation.value=location
     }
 
     override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {}
 
-    override fun onProviderEnabled(provider: String?) {}
+    override fun onProviderEnabled(provider: String) {}
 
-    override fun onProviderDisabled(provider: String?) {}
+    override fun onProviderDisabled(provider: String) {}
 }
